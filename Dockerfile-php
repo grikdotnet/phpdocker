@@ -4,11 +4,10 @@ LABEL Description="This image provides PHP-fpm with common extensions"
 MAINTAINER Grgiori Kochanov public@grik.net
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libfreetype6-dev  libjpeg62-turbo-dev  libpng12-dev libmagickcore-dev libmagickwand-dev \
-        libmemcached-dev libxslt1-dev  imagemagick-6 \
+        git libfreetype6-dev  libjpeg62-turbo-dev  libpng12-dev libmagickcore-dev libmagickwand-dev imagemagick libmagick++-dev \
+        libmemcached-dev libxml2 libxml2-dev libxslt1.1 libxslt1-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) iconv  \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) mbstring \
     && docker-php-ext-install -j$(nproc) bcmath \
@@ -16,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install -j$(nproc) xsl \
     && docker-php-ext-install -j$(nproc) iconv \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
-        libfreetype6-dev  libjpeg62-turbo-dev  libpng12-dev libmagickcore-dev libmagickwand-dev libmemcached-dev libxslt1-dev
+        libfreetype6-dev  libjpeg62-turbo-dev  libpng12-dev libmagickcore-dev libmagickwand-dev libxml2-dev libxslt1-dev libmagick++-dev
 
 # Installing XDebug from sources
 ENV XDEBUG_FILENAME xdebug-2.4.0rc4.tgz
@@ -31,7 +30,8 @@ RUN curl -fSL "https://xdebug.org/files/$XDEBUG_FILENAME" -o "$XDEBUG_FILENAME" 
 
 
 # Installing Memcached from sources
-RUN  cd /usr/src/ && git clone https://github.com/php-memcached-dev/php-memcached.git \
+RUN apt-get install -y --no-install-recommends libmemcached-dev  zlib1g-dev \
+    && cd /usr/src/ && git clone https://github.com/php-memcached-dev/php-memcached.git \
     && cd php-memcached \
     && git checkout php7 \
     && phpize \
@@ -39,10 +39,13 @@ RUN  cd /usr/src/ && git clone https://github.com/php-memcached-dev/php-memcache
     && make && make install \
     && cd .. && rm -rf php-memcached \
     && docker-php-ext-enable memcached \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+        zlib1g-dev libmemcached-dev
 
 # Generate an extended CLI version
 
 RUN cd /usr/src/php \
+    && apt-get install -y --no-install-recommends libcurl4-openssl-dev libreadline6-dev \
     && ./configure \
     --with-config-file-path="$PHP_INI_DIR" \
     --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
@@ -50,4 +53,5 @@ RUN cd /usr/src/php \
     --disable-cgi --enable-ftp --with-zlib --enable-mysqlnd --with-readline --with-openssl --with-curl \
     --enable-sockets --enable-sysvsem --enable-sysvshm --enable-shmop --enable-posix --without-pear --enable-pcntl
     && make -j"$(nproc)" && make install && make clean
-
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+        libcurl4-openssl-dev libreadline6-dev
