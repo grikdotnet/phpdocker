@@ -3,8 +3,6 @@ FROM php:7-fpm
 LABEL Description="This image provides PHP-fpm with common extensions"
 MAINTAINER Grigori Kochanov public@grik.net
 
-ENV XDEBUG_FILENAME xdebug-2.4.0rc4.tgz
-
 # php source code path is hardcoded in the parent Dockerfile
 ENV PHP_SOURCE_PATH /usr/src/php
 
