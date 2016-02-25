@@ -6,7 +6,7 @@
 apt-get update && apt-get install --no-install-recommends -y \
         libxml2-dev libxslt1-dev \
         libmemcached11 libmemcachedutil2 libmemcached-dev \
-        libssl-dev libcurl4-openssl-dev libreadline6-dev libgeoip-dev libgeoip1 \
+        libssl-dev libcurl4-openssl-dev libreadline6-dev libgeoip-dev \
         libc-client2007e-dev libkrb5-dev \
         postgresql-server-dev-9.* libpq5 \
         zlib1g-dev libbz2-dev xz-utils lbzip2 unzip
@@ -65,6 +65,10 @@ cd /usr/src/php
     --enable-sockets --enable-sysvsem --enable-sysvshm --enable-shmop --enable-posix --without-pear --enable-pcntl
 make -j"$(nproc)" && make install && make clean
 
+# Set up composer
+php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
+php composer-setup.php --install-dir=/usr/local/bin
+rm composer-setup.php
 
 #Clean up
 apt-get purge -y \
