@@ -1,0 +1,27 @@
+FROM grigori/phpextensions
+
+LABEL Description="This image provides PHP-fpm with common extensions"
+MAINTAINER Grigori Kochanov public@grik.net
+
+#Add graphics libraries for image magic and graphics magic
+RUN apt-get update && apt-get install -y --no-install-recommends \
+            fonts-dejavu ghostscript libgs-dev \
+            libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libtiff5-dev \
+            libjasper-dev libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+# Install ImageMagic
+    && cd /usr/src/ \
+    && curl -fSL http://www.imagemagick.org/download/ImageMagick.tar.xz -o ImageMagick.tar.xz \
+    && mkdir /usr/src/ImageMagick \
+    && tar -xf ImageMagick.tar.xz --strip-components=1 -C /usr/src/ImageMagick \
+    && cd /usr/src/ImageMagick \
+    && ./configure  --disable-docs --without-x --without-magick-plus-plus \
+           --with-dejavu-font-dir=/usr/share/fonts/truetype/dejavu --with-gslib=yes \
+    && make -j"$(nproc)" && make install \
+    && cd .. && rm -rf ImageMagick \
+    && docker-php-ext-install -j$(nproc) gmagick \
+
+
+
+

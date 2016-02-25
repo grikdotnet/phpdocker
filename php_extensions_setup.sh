@@ -16,18 +16,13 @@ apt-get update && apt-get install --no-install-recommends -y \
 docker-php-ext-enable opcache
 
 # Build base extensions
-sh -c "docker-php-ext-install bcmath" &
-sh -c "docker-php-ext-install mysqli" &
-sh -c "docker-php-ext-install xsl" &
-sh -c "docker-php-ext-install pgsql" &
-sh -c "docker-php-ext-install pdo_pgsql" &
-sh -c "docker-php-ext-install mbstring" &
+sh -c "docker-php-ext-install bcmath && docker-php-ext-install mysqli && docker-php-ext-install xsl && docker-php-ext-install mbstring" &
+sh -c "docker-php-ext-install pdo_pgsql && docker-php-ext-install pgsql" &
 sh -c "docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap" &
 
 # Compile PECL extensions
 pear config-set preferred_state beta
-sh -c "echo no| pecl install ev" &
-sh -c "echo no| pecl install apcu" &
+sh -c "echo no| pecl install ev; echo no| pecl install apcu" &
 
 # Download archives
 mkdir /usr/src/ext
