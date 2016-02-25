@@ -22,7 +22,6 @@ Extensions added to the FPM SAPI:
 * mysqli
 * pdo_mysql
 * pdo_pgsql
-* pdo_pgsql
 * pgsql
 * [redis](https://github.com/phpredis/phpredis)
 * xsl
