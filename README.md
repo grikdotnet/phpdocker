@@ -2,6 +2,14 @@
 
 Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar
 
+To build an image:
+```
+git clone https://github.com/grikdotnet/phpdocker.git
+cd phpdocker
+docker build -f Dockerfile-php -t phpextensions .
+```
+Time to build - about 5 minutes.
+
 Extensions added to the FPM SAPI:
 * apcu
 * bcmath
