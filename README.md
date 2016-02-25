@@ -29,3 +29,9 @@ Additional extensions added to CLI version:
 * [pcntl](http://php.net/manual/book.pcntl.php)
 * [posix](http://php.net/manual/book.posix.php)
 
+Additional disk size consumption: 144 MB
+```
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+phpextensions       latest              a35f94b9311b        12 minutes ago      638.9 MB
+php                 7-fpm               e6e0357f88cd        8 days ago          495 MB
+```
