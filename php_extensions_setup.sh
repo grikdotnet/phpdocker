@@ -17,7 +17,7 @@ docker-php-ext-enable opcache
 
 # Build base extensions
 sh -c "docker-php-ext-install bcmath && docker-php-ext-install mysqli && docker-php-ext-install xsl && docker-php-ext-install mbstring" &
-sh -c "docker-php-ext-install pdo_pgsql && docker-php-ext-install pgsql" &
+sh -c "docker-php-ext-install pdo_mysql && docker-php-ext-install pdo_pgsql && docker-php-ext-install pgsql" &
 sh -c "docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap" &
 
 # Compile PECL extensions
