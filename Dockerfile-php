@@ -9,3 +9,6 @@ ENV PHP_SOURCE_PATH /usr/src/php
 ADD php_extensions_setup.sh /php_extensions_setup.sh
 
 RUN ["/bin/sh", "/php_extensions_setup.sh"]
+RUN cp /usr/src/php/php.ini-production /usr/local/etc/php/php.ini
+    && cp -R /usr/local/etc/ /usr/local/etc-init
+CMD test "$(ls -A "/usr/local/etc" 2>/dev/null)" || cp /usr/local/etc-init/* /usr/local/etc/

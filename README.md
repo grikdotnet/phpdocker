@@ -2,11 +2,24 @@
 
 Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar
 
-To build an image:
+The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
+
+Usage:
+1. Run a container from an image
+2. Create init config folder
+3. Edit configs, disable unused extensions
+4. Re-run the container
+
+Example:
 ```
-git clone https://github.com/grikdotnet/phpdocker.git
-cd phpdocker
-docker build -f Dockerfile-php -t phpextensions .
+mkdir php.etc
+docker run --rm -v $(pwd)/php.etc:/usr/local/etc grigori/phpextensions true
+cd /usr/local/etc/php/
+vi php.ini
+cd conf.d/
+rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-igbinary.ini docker-php-ext-redis.ini
+cd ../..
+docker run --name=php7 -v $(pwd)/php.etc:/usr/local/etc grigori/phpextensions
 ```
 Time to build - about 5 minutes.
 
