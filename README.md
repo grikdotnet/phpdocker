@@ -15,7 +15,7 @@ Usage:
 Example:
 ```
 mkdir etc logs upload_tmp
-docker run --rm -v $(pwd)/etc:/usr/local/etc phpextensions
+docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 vi ./etc/php/php.ini
 cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-igbinary.ini docker-php-ext-redis.ini
