@@ -5,23 +5,25 @@ Based on the official PHP 7-fpm image, added commonly used extensions and Compos
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
 Usage:
-1. Run a container from an image
-2. Create init config folder
-3. Edit configs, disable unused extensions
-4. Re-run the container
+1. Create folders etc\ and logs\ in your project
+2. Run a container mounting the etc\ folder to /usr/local/etc, it will init the configs in it
+3. Edit configs and disable unused extensions
+4. Run FPM
+5. Commit configs to your VCS
 
 Example:
 ```
-mkdir php.etc
-docker run --rm -v $(pwd)/php.etc:/usr/local/etc grigori/phpextensions true
-cd /usr/local/etc/php/
-vi php.ini
-cd conf.d/
+mkdir etc logs upload_tmp
+docker run --rm -v $(pwd)/etc:/usr/local/etc phpextensions
+vi ./etc/php/php.ini
+cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-igbinary.ini docker-php-ext-redis.ini
-cd ../..
-docker run --name=php7 -v $(pwd)/php.etc:/usr/local/etc grigori/phpextensions
+docker run -d --name=php7 -v $(pwd)/etc:/usr/local/etc \
+    -v $(pwd)/logs:/var/log/php \
+    -v $(pwd)/upload_tmp:/var/upload_tmp \
+    grigori/phpextensions php-fpm > logs/fpm.log 2>&1
+git add etc/
 ```
-Time to build - about 5 minutes.
 
 Extensions added to the FPM SAPI:
 * apcu
@@ -55,3 +57,5 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 phpextensions       latest              a35f94b9311b        12 minutes ago      638.9 MB
 php                 7-fpm               e6e0357f88cd        8 days ago          495 MB
 ```
+
+Time to build - about 5 minutes.

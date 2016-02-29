@@ -56,7 +56,7 @@ cd /usr/src/ext/phpredis-php7 && phpize && ./configure && make -j"$(nproc)" && m
     && docker-php-ext-enable redis
 
 # Generate a CLI version with SHM, PCNTL and ZTS for pthreads
-cd /usr/src/php
+cd $PHP_SOURCE_PATH
 ./configure \
     --with-config-file-path="$PHP_INI_DIR" \
     --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
