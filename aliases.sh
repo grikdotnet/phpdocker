@@ -1,0 +1,1 @@
+docker-bash() {docker run -ti --rm $3 --entrypoint /bin/bash $1 $2 }

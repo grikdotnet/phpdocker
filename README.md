@@ -1,4 +1,4 @@
-# Phpdocker
+# Php with extensions
 
 Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar
 
