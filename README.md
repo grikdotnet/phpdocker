@@ -5,6 +5,7 @@ Based on the official PHP 7-fpm image, added commonly used extensions and Compos
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
 Usage:
+
 1. Create folders etc\ and logs\ in your project
 2. Run a container mounting the etc\ folder to /usr/local/etc, it will init the configs in it
 3. Edit configs and disable unused extensions
