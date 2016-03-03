@@ -22,7 +22,7 @@ sh -c "docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-p
 
 # Compile PECL extensions
 pear config-set preferred_state beta
-sh -c "echo no| pecl install ev; echo no| pecl install apcu" &
+sh -c "echo no| pecl install ev; echo no| pecl install apcu; echo no| pecl install msgpack" &
 
 # Download archives
 mkdir /usr/src/ext
@@ -81,4 +81,4 @@ apt-get purge -y \
     zlib1g-dev libbz2-dev
 
 
-rm -rf /var/lib/apt/lists/* /usr/src/ext /tmp/*
+rm -rf /var/lib/apt/lists/* /usr/src/ext /tmp/* /var/tmp/*

@@ -27,22 +27,23 @@ git add etc/
 ```
 
 Extensions added to the FPM SAPI:
-* Apcu
+* Apcu (beta)
 * Bcmath
 * [Data Structures](https://medium.com/@rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd)
-* [Ev](http://docs.php.net/ev)
+* [Ev](http://docs.php.net/ev) (beta)
 * IMAP
-* [igbinary](https://github.com/igbinary/igbinary) used with redis
+* [igbinary](https://github.com/igbinary/igbinary) (beta) - a serializer for redis and memcached
 * Kerberos
 * Mbstring
-* [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7)
+* [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7) (beta)
+* [Msgpack](https://pecl.php.net/package/msgpack) (beta)
 * mysqli
 * Pdo_mysql
 * Pdo_pgsql
 * Pgsql
-* [Redis](https://github.com/phpredis/phpredis)
+* [Redis](https://github.com/phpredis/phpredis) (beta)
 * XSL
-* Xdebug
+* Xdebug (beta)
 * Zend OPcache
 
 
