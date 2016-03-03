@@ -27,40 +27,40 @@ sh -c "echo no| pecl install ev; echo no| pecl install apcu" &
 # Download archives
 mkdir /usr/src/ext
 cd /usr/src/ext
-curl -L https://github.com/php-memcached-dev/php-memcached/archive/php7.zip -o php7-memcached.zip
-curl -L https://github.com/igbinary/igbinary/archive/php7-dev-playground2.zip -o php7-igbinary.zip
-curl -L https://github.com/edtechd/phpredis/archive/php7.zip -o php7-redis.zip
+curl -L https://github.com/php-memcached-dev/php-memcached/archive/php7.zip -o php7-memcached.zip \
+ -L https://github.com/igbinary/igbinary/archive/php7-dev-playground2.zip -o php7-igbinary.zip \
+ -L https://github.com/edtechd/phpredis/archive/php7.zip -o php7-redis.zip \
+ -L https://github.com/php-ds/extension/archive/master.zip -o php-ds.zip
 curl -O https://xdebug.org/files/xdebug-2.4.0rc4.tgz
 
-unzip php7-memcached.zip
-unzip php7-redis.zip
-unzip php7-igbinary.zip
-tar -xf xdebug-2.4.0rc4.tgz
-
+unzip php7-memcached.zip &
+unzip php7-redis.zip &
+unzip php7-igbinary.zip &
+unzip php-ds.zip &
+tar -xf xdebug-2.4.0rc4.tgz &
+wait
 
 # Compile XDebug from github sources
-cd /usr/src/ext/xdebug-2.4.0RC4 && phpize && ./configure && make && make install \
-    && docker-php-ext-enable xdebug
+sh -c "cd xdebug-2.4.0RC4/ && phpize && ./configure && make && make install  && docker-php-ext-enable xdebug" &
 
 # Compile Memcached from sources
-cd /usr/src/ext/php-memcached-php7 && phpize && ./configure --disable-memcached-sasl && make && make install \
-    && docker-php-ext-enable memcached
+sh -c "cd php-memcached-php7/ && phpize && ./configure --disable-memcached-sasl && make && make install && docker-php-ext-enable memcached " &
 
 
 # Compile igbinary extension
-cd /usr/src/ext/igbinary-php7-dev-playground2 && phpize && ./configure && make -j"$(nproc)" && make install \
-    && docker-php-ext-enable igbinary
+sh -c "cd igbinary-php7-dev-playground2/ && phpize && ./configure && make && make install && docker-php-ext-enable igbinary" &
 
 # Compile Redis extension
-cd /usr/src/ext/phpredis-php7 && phpize && ./configure && make -j"$(nproc)" && make install \
-    && docker-php-ext-enable redis
+sh -c "cd phpredis-php7/ && phpize && ./configure && make && make install && docker-php-ext-enable redis" &
+
+# Compile Redis extension
+sh -c "cd extension-master/ && phpize && ./configure && make && make install && docker-php-ext-enable ds" &
 
 # Generate a CLI version with SHM, PCNTL and ZTS for pthreads
 cd $PHP_SOURCE_PATH
 ./configure \
     --with-config-file-path="$PHP_INI_DIR" \
     --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
-    --with-fpm-user=www-data --with-fpm-group=www-data \
     --disable-cgi --enable-ftp --with-zlib --enable-mysqlnd --with-readline --with-openssl --with-curl \
     --enable-sockets --enable-sysvsem --enable-sysvshm --enable-shmop --enable-posix --without-pear --enable-pcntl
 make -j"$(nproc)" && make install && make clean

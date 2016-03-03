@@ -27,36 +27,35 @@ git add etc/
 ```
 
 Extensions added to the FPM SAPI:
-* apcu
-* bcmath
-* ev
-* imap
+* Apcu
+* Bcmath
+* [Data Structures](https://medium.com/@rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd)
+* [Ev](http://docs.php.net/ev)
+* IMAP
 * [igbinary](https://github.com/igbinary/igbinary) used with redis
-* kerberos
-* mbstring
+* Kerberos
+* Mbstring
 * [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7)
 * mysqli
-* pdo_mysql
-* pdo_pgsql
-* pgsql
-* [redis](https://github.com/phpredis/phpredis)
-* xsl
+* Pdo_mysql
+* Pdo_pgsql
+* Pgsql
+* [Redis](https://github.com/phpredis/phpredis)
+* XSL
 * Xdebug
 * Zend OPcache
 
 
 Additional extensions added to CLI version:
-* ftp
+* FTP
 * [sockets](php.net/manual/ru/book.sockets.php)
 * sysvsem, sysvshm, [shmop](http://php.net/manual/book.shmop.php)
-* [pcntl](http://php.net/manual/book.pcntl.php)
-* [posix](http://php.net/manual/book.posix.php)
+* [PCNTL](http://php.net/manual/book.pcntl.php)
+* [POSIX](http://php.net/manual/book.posix.php)
 
-Additional disk size consumption: 144 MB
+Additional disk consumption: 140 MB
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-phpextensions       latest              a35f94b9311b        12 minutes ago      638.9 MB
+phpextensions       latest              6a506ccc4b69        About an hour ago   635.1 MB
 php                 7-fpm               e6e0357f88cd        8 days ago          495 MB
 ```
-
-Time to build - about 5 minutes.
