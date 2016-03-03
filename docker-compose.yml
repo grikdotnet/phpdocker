@@ -1,0 +1,25 @@
+memcached:
+  image: tenstartups/alpine-memcached:latest
+  container_name: test-memcached
+
+
+
+
+nginx:
+  build: .
+  image: nginx
+  container_name: nginx
+  volumes:
+      - ..:/var/www/test
+  ports:
+   - "9000:80"
+  links:
+   - test-php-fpm
+
+php-fpm:
+  image: grigori/phpextensions
+  container_name: php-fpm
+  volumes:
+    - ..:/var/www/test
+  links:
+    - test-memcached
