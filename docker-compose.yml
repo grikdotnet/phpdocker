@@ -1,25 +1,28 @@
 memcached:
-  image: tenstartups/alpine-memcached:latest
-  container_name: test-memcached
-
-
-
+  image: tenstartups/memcached
+  container_name: memcached
 
 nginx:
-  build: .
   image: nginx
   container_name: nginx
   volumes:
-      - ..:/var/www/test
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/fastcgi_params:/etc/nginx/fastcgi_params
+      - ./etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./logs:/var/log/nginx/
   ports:
-   - "9000:80"
+   - "8080:80"
   links:
-   - test-php-fpm
+   - php-fpm
+   - memcached
 
 php-fpm:
   image: grigori/phpextensions
   container_name: php-fpm
+  command: [php-fpm]
   volumes:
-    - ..:/var/www/test
+    - ./etc/:/usr/local/etc/
+    - ./logs:/var/log/php/
+    - ./upload_tmp:/var/upload_tmp/
   links:
-    - test-memcached
+    - memcached
