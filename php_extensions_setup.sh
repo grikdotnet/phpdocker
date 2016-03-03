@@ -22,7 +22,9 @@ sh -c "docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-p
 
 # Compile PECL extensions
 pear config-set preferred_state beta
-sh -c "echo no| pecl install ev; echo no| pecl install apcu; echo no| pecl install msgpack" &
+echo no| pecl install ev
+echo no| pecl install apcu
+echo no| pecl install msgpack
 
 # Download archives
 mkdir /usr/src/ext
@@ -43,18 +45,24 @@ wait
 # Compile XDebug from github sources
 sh -c "cd xdebug-2.4.0RC4/ && phpize && ./configure && make && make install  && docker-php-ext-enable xdebug" &
 
-# Compile Memcached from sources
-sh -c "cd php-memcached-php7/ && phpize && ./configure --disable-memcached-sasl && make && make install && docker-php-ext-enable memcached " &
-
+# Compile Data Structures extension
+sh -c "cd extension-master/ && phpize && ./configure && make && make install && docker-php-ext-enable ds" &
 
 # Compile igbinary extension
-sh -c "cd igbinary-php7-dev-playground2/ && phpize && ./configure && make && make install && docker-php-ext-enable igbinary" &
+sh -c "cd igbinary-php7-dev-playground2/ && phpize && ./configure && make && make install && docker-php-ext-enable igbinary"
+echo 'session.serialize_handler = igbinary' >>  $PHP_INI_DIR/conf.d/docker-php-ext-igbinary.ini
 
 # Compile Redis extension
-sh -c "cd phpredis-php7/ && phpize && ./configure && make && make install && docker-php-ext-enable redis" &
+sh -c "cd phpredis-php7/ && phpize && ./configure --enable-redis-igbinary && make && make install && docker-php-ext-enable redis" &
 
-# Compile Redis extension
-sh -c "cd extension-master/ && phpize && ./configure && make && make install && docker-php-ext-enable ds" &
+# Compile Memcached from sources
+sh -c "cd php-memcached-php7/ && phpize && ./configure --disable-memcached-sasl && make && make install && docker-php-ext-enable memcached "
+echo 'session.save_path = "memcached:11211"' >>  $PHP_INI_DIR/conf.d/docker-php-ext-memcached.ini
+echo 'session.save_handler = memcached' >>  $PHP_INI_DIR/conf.d/docker-php-ext-memcached.ini
+
+# Set up composer
+php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
+php composer-setup.php --install-dir=/usr/local/bin
 
 # Generate a CLI version with SHM, PCNTL and ZTS for pthreads
 cd $PHP_SOURCE_PATH
@@ -64,11 +72,6 @@ cd $PHP_SOURCE_PATH
     --disable-cgi --enable-ftp --with-zlib --enable-mysqlnd --with-readline --with-openssl --with-curl \
     --enable-sockets --enable-sysvsem --enable-sysvshm --enable-shmop --enable-posix --without-pear --enable-pcntl
 make -j"$(nproc)" && make install && make clean
-
-# Set up composer
-php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
-php composer-setup.php --install-dir=/usr/local/bin
-rm composer-setup.php
 
 #Clean up
 apt-get purge -y \
