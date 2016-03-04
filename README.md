@@ -29,9 +29,8 @@ docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 vi ./etc/php/php.ini
 cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-redis.ini
-cd ../..
-vi nginx/conf.d/default.conf
 cd ../../..
+vi ./etc/nginx/conf.d/default.conf
 docker-compose up
 ```
 
