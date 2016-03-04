@@ -30,7 +30,7 @@ chmod g+rwx logs etc
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 vi ./etc/php/php.ini
 cd ./etc/php/conf.d/
-rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-redis.ini
+rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
 vi ./etc/nginx/conf.d/default.conf
 git add ./etc ./docker-compose.yml
