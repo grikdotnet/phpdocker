@@ -4,26 +4,36 @@ Based on the official PHP 7-fpm image, added commonly used extensions and Compos
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
+Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system.
+Check that www-data in your system has ID 33, and add yourself to the www-data group.
+```
+$ id www-data
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+$ sudo usermod -a -G www-data $(whoami)
+```
+The value 33 is hard-coded by the official docker image maintainers. It can be changed, but now I just assume it is synchronized.
+
 Usage:
 
-1. Create folders etc\ and logs\ in your project
-2. Run a container mounting the etc\ folder to /usr/local/etc, it will init the configs in it
+1. Create folders etc\ and logs\ in your project, set the group ownership
+2. Run the phpextensions container with the etc\ folder mounted, the container will init the php config files
 3. Edit configs and disable unused extensions
-4. Run FPM
-5. Commit configs to your VCS
+6. Run docker-compose
+7. Commit your configs to your project VCS
 
 Example:
 ```
 mkdir etc logs upload_tmp
+chgrp www-data logs etc
+chmod g+rwx logs etc
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 vi ./etc/php/php.ini
 cd ./etc/php/conf.d/
-rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-igbinary.ini docker-php-ext-redis.ini
-docker run -d --name=php7 -v $(pwd)/etc:/usr/local/etc \
-    -v $(pwd)/logs:/var/log/php \
-    -v $(pwd)/upload_tmp:/var/upload_tmp \
-    grigori/phpextensions php-fpm > logs/fpm.log 2>&1
-git add etc/
+rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-redis.ini
+cd ../..
+vi nginx/conf.d/default.conf
+cd ../../..
+docker-compose up
 ```
 
 Extensions added to the FPM SAPI:

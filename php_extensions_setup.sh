@@ -56,7 +56,7 @@ echo 'session.serialize_handler = igbinary' >>  $PHP_INI_DIR/conf.d/docker-php-e
 sh -c "cd phpredis-php7/ && phpize && ./configure --enable-redis-igbinary && make && make install && docker-php-ext-enable redis" &
 
 # Compile Memcached from sources
-sh -c "cd php-memcached-php7/ && phpize && ./configure --disable-memcached-sasl && make && make install && docker-php-ext-enable memcached "
+sh -c "cd php-memcached-php7/ && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make && make install && docker-php-ext-enable memcached "
 echo 'session.save_path = "memcached:11211"' >>  $PHP_INI_DIR/conf.d/docker-php-ext-memcached.ini
 echo 'session.save_handler = memcached' >>  $PHP_INI_DIR/conf.d/docker-php-ext-memcached.ini
 
