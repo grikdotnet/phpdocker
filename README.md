@@ -1,6 +1,7 @@
 # Php with extensions
 
-Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar
+Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar.
+
 Intended to run PHP stack, having config stored in CVS with your application.
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
