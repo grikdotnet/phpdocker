@@ -10,7 +10,7 @@ $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ sudo usermod -a -G www-data $(whoami)
 ```
-The value "33" is hard-coded by maintainers of official docker images. It does not matter and can be changed, just make sure it is synchronized to avoid permissions issues. Keep in mind that docker runs with the host filesystem.
+The value "33" is hard-coded by maintainers of official docker images. It does not matter and can be changed, just make sure it is synchronized to avoid permission issues in mounted folders.
 
 Usage:
 
