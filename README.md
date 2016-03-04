@@ -34,6 +34,7 @@ rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
 vi ./etc/nginx/conf.d/default.conf
 git add ./etc ./docker-compose.yml
+wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.yml
 docker-compose up
 ```
 
