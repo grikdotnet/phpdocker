@@ -25,6 +25,6 @@ php-fpm:
     - ./etc/:/usr/local/etc/
     - ./logs:/var/log/php/
     - ./upload_tmp:/var/upload_tmp/
-    - ./wwwroot:/opt/www
+    - ./:/opt/www/
   links:
     - memcached
