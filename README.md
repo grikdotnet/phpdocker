@@ -5,8 +5,7 @@ Intended to run PHP stack, having config stored in CVS with your application.
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
-Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system.
-Check that www-data in your system has ID 33, and add yourself to the www-data group.
+Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system. Check www-data id in your system, and add yourself to the www-data group.
 ```
 $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
@@ -24,17 +23,17 @@ Usage:
 
 Example:
 ```
-mkdir etc logs upload_tmp
+cd /path/to/application
+mkdir etc logs upload_tmp wwwroot
 chgrp www-data logs etc
 chmod g+rwx logs etc
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 vi ./etc/php/php.ini
 cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-redis.ini
-cd ../..
-vi nginx/conf.d/default.conf
 cd ../../..
-git add ./etc
+vi ./etc/nginx/conf.d/default.conf
+git add ./etc ./docker-compose.yml
 docker-compose up
 ```
 
