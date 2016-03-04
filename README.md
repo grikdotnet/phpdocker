@@ -1,6 +1,7 @@
 # Php with extensions
 
 Based on the official PHP 7-fpm image, added commonly used extensions and Composer.phar
+Intended to run PHP stack, having config stored in CVS with your application.
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
@@ -11,7 +12,7 @@ $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ sudo usermod -a -G www-data $(whoami)
 ```
-The value 33 is hard-coded by the official docker image maintainers. It can be changed, but now I just assume it is synchronized.
+The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the image.
 
 Usage:
 
@@ -33,6 +34,7 @@ rm docker-php-ext-xdebug.ini docker-php-ext-pdo_pgsql.ini docker-php-ext-redis.i
 cd ../..
 vi nginx/conf.d/default.conf
 cd ../../..
+git add ./etc
 docker-compose up
 ```
 
