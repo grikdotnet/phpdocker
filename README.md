@@ -4,14 +4,13 @@ Based on the official PHP 7-fpm image, added commonly used extensions and Compos
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
-Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system.
-Check that www-data in your system has ID 33, and add yourself to the www-data group.
+Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system. Check www-data id in your system, and add yourself to the www-data group.
 ```
 $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ sudo usermod -a -G www-data $(whoami)
 ```
-The value 33 is hard-coded by the official docker image maintainers. It can be changed, but now I just assume it is synchronized.
+The value "33" is hard-coded by the official docker image maintainers. It does not matter and can be changed, just make sure it is synchronized to avoid permissions issues. Keep in mind that docker runs with the host filesystem.
 
 Usage:
 
