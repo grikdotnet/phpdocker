@@ -12,32 +12,32 @@ $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ sudo usermod -a -G www-data $(whoami)
 ```
-The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the image.
+The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the phpextensions image.
 
 Usage:
-
-1. Create folders etc\ and logs\ in your project, set the group ownership
-2. Init php configurations files with phpextensions container
+Assuming your document root folder is called wwroot\ and is located in your application folder.
+1. Init config and log folders, set the group ownership
+2. Init php configurations files from container
 3. Edit configs and disable unused extensions
-4. Preare a MySQL initial dump file
+4. Preare a database initial dump file
 5. Run docker-compose
 6. Commit your configs to your project VCS
 
-Example:
+Example to launch Nginx/PHP/MariaDB/Memcached without XDebug:
 ```
 cd /path/to/application
-mkdir etc logs upload_tmp wwwroot
-chgrp www-data logs etc
+wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -x
+chgrp -R www-data .
 chmod g+rwx logs etc
-docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
-vi ./etc/php/php.ini
+docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions # init php configs in ./etc/
 cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
+vi ./etc/php/php.ini
 vi ./etc/nginx/conf.d/default.conf
-touch log/mysqld.log
 vi ./etc/my.custom.cnf
-git add ./etc ./docker-compose.yml
+mv myapp.dump.sql init.sql # should contain a `create database` command
+git add ./etc ./docker-compose.yml && git commit -m "Adding php/nginx/mysql/docker-compose configs"
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.yml
 docker-compose up
 ```
