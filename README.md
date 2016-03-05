@@ -30,8 +30,8 @@ cd /path/to/application
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -x
 chgrp -R www-data .
 chmod g+rwx logs etc
-# init php configs in ./etc folder
-docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions # init php configs in ./etc/
+# init php configs in ./etc folder from an image
+docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 cd ./etc/php/conf.d/
 # disable extensions you don't want to have enabled
 rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
