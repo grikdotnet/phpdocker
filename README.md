@@ -26,19 +26,26 @@ Assuming your document root folder is called wwroot\ and is located in your appl
 Example to launch Nginx/PHP/MariaDB/Memcached without XDebug:
 ```
 cd /path/to/application
+# init etc/ and logs/ folders
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -x
 chgrp -R www-data .
 chmod g+rwx logs etc
+# init php configs in ./etc folder
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions # init php configs in ./etc/
 cd ./etc/php/conf.d/
+# disable extensions you don't want to have enabled
 rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
+# edit configs
 vi ./etc/php/php.ini
 vi ./etc/nginx/conf.d/default.conf
 vi ./etc/my.custom.cnf
-mv myapp.dump.sql init.sql # should contain a `create database` command
+# prepare a database init dump, should contain a `create database` command
+mv myapp.dump.sql init.sql
+# add lnpm stack configs to your git repo
 git add ./etc ./docker-compose.yml && git commit -m "Adding php/nginx/mysql/docker-compose configs"
-wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.yml
+# edit docker-compose.ym per taste and start
+wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.ym
 docker-compose up
 ```
 
