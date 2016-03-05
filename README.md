@@ -17,10 +17,11 @@ The value 33 is hard-coded by the official image maintainers. It [can be changed
 Usage:
 
 1. Create folders etc\ and logs\ in your project, set the group ownership
-2. Run the phpextensions container with the etc\ folder mounted, the container will init the php config files
+2. Init php configurations files with phpextensions container
 3. Edit configs and disable unused extensions
-6. Run docker-compose
-7. Commit your configs to your project VCS
+4. Preare a MySQL initial dump file
+5. Run docker-compose
+6. Commit your configs to your project VCS
 
 Example:
 ```
@@ -34,6 +35,8 @@ cd ./etc/php/conf.d/
 rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
 vi ./etc/nginx/conf.d/default.conf
+touch log/mysqld.log
+vi ./etc/my.custom.cnf
 git add ./etc ./docker-compose.yml
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.yml
 docker-compose up

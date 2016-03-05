@@ -28,3 +28,14 @@ php-fpm:
     - ./:/opt/www/
   links:
     - memcached
+    - mysql
+
+mysql:
+  image: mariadb
+  container_name: mysql
+  environment:
+    -  MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./etc/my.custom.cnf:/etc/mysql/conf.d/my.custom.cnf
+    - ./logs/mysqld.log:/var/log/mysqld.log
