@@ -43,7 +43,7 @@ do
 done
 
 # Compile XDebug from github sources
-sh -c "cd xdebug-2.4.0RC4/ && phpize && ./configure && make && make install  && docker-php-ext-enable xdebug" &
+sh -c "cd xdebug* && phpize && ./configure && make && make install  && docker-php-ext-enable xdebug" &
 
 # Compile Data Structures extension
 sh -c "cd php-ds/ && phpize && ./configure && make && make install && docker-php-ext-enable ds" &
