@@ -6,15 +6,15 @@ Intended to deploy a PHP stack and switch versions very fast, having configs sto
 
 The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
 
-Before using docker it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system. Check www-data id in your system, and add yourself to the www-data group.
+If you use Docker Machine in Windows or MacOS, mount the folder with your project to your virtual machine, using the same path. You can find how to do it on [StackOverflow](http://stackoverflow.com/questions/30040708/how-to-mount-local-volumes-in-docker-machine/32030385#32030385).
+
+If you use docker in Linux, it is better to have the user and group ID inside the docker container synchronized with the user and group ID in your system. Check www-data id in your system, and add yourself to the www-data group.
 ```
 $ id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ sudo usermod -a -G www-data $(whoami)
 ```
 The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the phpextensions image.
-
-If you are using Docker Machine in Windows or MacOS, mount the folder with your project to your virtual machine, using the same path. You can find how to do it on [StackOverflow](http://stackoverflow.com/questions/30040708/how-to-mount-local-volumes-in-docker-machine/32030385#32030385).
 
 Usage:
 Assuming your document root folder is called wwroot\ and is located in your application folder.
