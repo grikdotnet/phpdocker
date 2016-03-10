@@ -14,6 +14,8 @@ $ sudo usermod -a -G www-data $(whoami)
 ```
 The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the phpextensions image.
 
+If you are using Docker Machine in Windows or MacOS, mount the folder with your project to your virtual machine, using the same path. You can find how to do it on [StackOverflow](http://stackoverflow.com/questions/30040708/how-to-mount-local-volumes-in-docker-machine/32030385#32030385).
+
 Usage:
 Assuming your document root folder is called wwroot\ and is located in your application folder.
 1. Init config and log folders, set the group ownership
