@@ -16,7 +16,7 @@ $ sudo usermod -a -G www-data $(whoami)
 ```
 The value 33 is hard-coded by the official image maintainers. It [can be changed](https://github.com/phpdocker-io/base-images/blob/master/php-fpm/7.0/Dockerfile#L23) by extending the phpextensions image.
 
-Usage:
+### Usage:
 Assuming your document root folder is called wwroot\ and is located in your application folder.
 1. Init config and log folders, set the group ownership
 2. Init php configurations files from container
@@ -25,28 +25,38 @@ Assuming your document root folder is called wwroot\ and is located in your appl
 5. Run docker-compose
 6. Commit your configs to your project VCS
 
-Example to launch Nginx/PHP/MariaDB/Memcached without XDebug:
+### Example
+
+Init configs and logs folders
 ```
 cd /path/to/application
-# init etc/ and logs/ folders
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -x
 chgrp -R www-data .
 chmod g+rwx logs etc
 # init php configs in ./etc folder from an image
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
+```
+Disable PHP extensions you don't want to have enabled
+Edit PHP and NGINX configs
+```
 cd ./etc/php/conf.d/
-# disable extensions you don't want to have enabled
 rm docker-php-ext-xdebug.ini docker-php-ext-ev.ini docker-php-ext-imap.ini
 cd ../../..
-# edit configs
 vi ./etc/php/php.ini
 vi ./etc/nginx/conf.d/default.conf
+```
+Prepare a database init dump, should contain a `create database` command.
+Add custom mysql setings.
+```
 vi ./etc/my.custom.cnf
-# prepare a database init dump, should contain a `create database` command
 mv myapp.dump.sql init.sql
-# add lnpm stack configs to your git repo
+```
+Add Nginx/PHP/MySQL configs to your git repo.
+```
 git add ./etc ./docker-compose.yml && git commit -m "Adding php/nginx/mysql/docker-compose configs"
-# edit docker-compose.ym per taste and start
+```
+Prepare docker-compose config and start
+```
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.ym
 docker-compose up
 ```
