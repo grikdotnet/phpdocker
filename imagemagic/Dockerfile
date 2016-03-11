@@ -1,4 +1,4 @@
-FROM phpextensions
+FROM grigori/phpextensions
 
 LABEL Description="This image provides PHP-fpm with image processing extensions"
 MAINTAINER Grigori Kochanov public@grik.net
