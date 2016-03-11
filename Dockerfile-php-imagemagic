@@ -1,26 +1,23 @@
-FROM grigori/phpextensions
+FROM phpextensions
 
 LABEL Description="This image provides PHP-fpm with image processing extensions"
 MAINTAINER Grigori Kochanov public@grik.net
 
 #Add graphics libraries for image magic and graphics magic
 RUN apt-get update && apt-get install --no-install-recommends -y \
-            libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libtiff5-dev libgif-dev \
-            libwebp-dev libjasper-dev zlib1g-dev libbz2-dev \
+            libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libtiff5-dev \
+            libwebp-dev libjasper-dev zlib1g-dev libbz2-dev liblzma-dev \
 && curl -O http://www.imagemagick.org/download/ImageMagick.tar.xz \
     && mkdir /usr/src/ImageMagick && tar -xf ImageMagick.tar.xz --strip-components=1 -C /usr/src/ImageMagick \
     && cd /usr/src/ImageMagick \
     && ./configure  --disable-docs --without-x --without-magick-plus-plus \
            --with-gslib=yes --with-wmf=no \
-    && make -j$(nproc) && make install \
+    && make -j$(nproc) && make install && ldconfig /usr/local/lib \
     && cd /usr/src/ && rm -rf ImageMagick* \
-&& docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-        --with-webp-dir=/usr/local/ --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \
-    && docker-php-ext-install -j$(nproc) gd \
-&& echo no| pecl install imagick \
-&& apt-get purge -y libbz2-dev libfreetype6-dev libgif-dev libjasper-dev libjbig-dev libjpeg62-turbo-dev liblzma-dev \
+&& echo no| pecl install imagick &&  docker-php-ext-enable imagick \
+&& apt-get purge -y libbz2-dev libfreetype6-dev libjasper-dev libjbig-dev libjpeg62-turbo-dev \
         libpng12-dev libtiff5-dev zlib1g-dev libwebp-dev \
-    && rm -rf /var/lib/apt/lists/* /tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /usr/local/include/ImageMagick*
 
 
 

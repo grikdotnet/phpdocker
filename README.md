@@ -54,16 +54,17 @@ Extensions added to the FPM SAPI:
 * Bcmath
 * [Data Structures](https://medium.com/@rtheunissen/efficient-data-structures-for-php-7-9dda7af674cd)
 * [Ev](http://docs.php.net/ev) (beta)
+* GD with webp support
 * IMAP
 * [igbinary](https://github.com/igbinary/igbinary) (beta) - a serializer for redis and memcached
 * Kerberos
 * Mbstring
-* [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7) (beta)
-* [Msgpack](https://pecl.php.net/package/msgpack) (beta)
+* [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7) (beta), configured as a session storage
+* [Msgpack](https://pecl.php.net/package/msgpack) (beta), another nice serializer
 * mysqli
-* Pdo_mysql
-* Pdo_pgsql
-* Pgsql
+* pdo_mysql
+* pdo_pgsql
+* Pgsql built upon Postgres 9 client lib
 * [Redis](https://github.com/phpredis/phpredis) (beta)
 * XSL
 * Xdebug (beta)

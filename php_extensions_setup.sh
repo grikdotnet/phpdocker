@@ -9,6 +9,7 @@ apt-get update && apt-get install --no-install-recommends -y \
         libssl-dev libcurl4-openssl-dev libreadline6-dev libgeoip-dev \
         libc-client2007e-dev libkrb5-dev \
         postgresql-server-dev-9.* libpq5 \
+        libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libwebp-dev \
         zlib1g-dev libbz2-dev xz-utils
 
 
@@ -16,9 +17,12 @@ apt-get update && apt-get install --no-install-recommends -y \
 docker-php-ext-enable opcache
 
 # Build base extensions
-sh -c "docker-php-ext-install bcmath && docker-php-ext-install mysqli && docker-php-ext-install xsl && docker-php-ext-install mbstring" &
-sh -c "docker-php-ext-install pdo_mysql && docker-php-ext-install pdo_pgsql && docker-php-ext-install pgsql" &
-sh -c "docker-php-ext-configure imap --with-kerberos --with-imap-ssl && docker-php-ext-install imap" &
+sh -c "docker-php-ext-install bcmath mysqli xsl mbstring" &
+sh -c "docker-php-ext-install pdo_mysql pdo_pgsql pgsql" &
+sh -c "docker-php-ext-configure imap --without-kerberos --with-imap-ssl && docker-php-ext-install imap" &
+sh -c "docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+        --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \
+    && docker-php-ext-install gd " &
 
 # Compile PECL extensions
 pear config-set preferred_state beta
@@ -71,16 +75,16 @@ cd $PHP_SOURCE_PATH
     --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" \
     --disable-cgi --enable-ftp --with-zlib --enable-mysqlnd --with-readline --with-openssl --with-curl \
     --enable-sockets --enable-sysvsem --enable-sysvshm --enable-shmop --enable-posix --without-pear --enable-pcntl \
-  && make -j"$(nproc)" && make install && make clean
+  && make -j"$(nproc)" && make install && make distclean
 
 #Clean up
 apt-get purge -y \
     libssl-dev libcurl4-openssl-dev libgeoip-dev libhashkit-dev libmemcached-dev libreadline6-dev libsasl2-dev libtinfo-dev \
-    libpython* comerr-dev* krb5-multidev* \
-    libxml2-dev libxslt1-dev \
-    libc-client2007e-dev libkrb5-dev libpam0g-dev \
+    comerr-dev* libxml2-dev libxslt1-dev \
+    libc-client2007e-dev krb5-multidev* libkrb5-dev libkadm5* libkdb5* libpam0g-dev \
     libpq-dev init-system-helpers postgresql-client-common postgresql-common postgresql-server-dev-9.* \
     init-system-helpers postgresql-common ssl-cert ucf \
+    libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libwebp-dev libjbig-dev \
     zlib1g-dev libbz2-dev
 
 
