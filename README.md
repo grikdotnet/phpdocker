@@ -4,7 +4,7 @@ Based on the official PHP 7-fpm image, added commonly used extensions and Compos
 
 Intended to deploy a PHP stack and switch versions very fast, having configs stored in CVS with your application.
 
-The [Dockerfile](https://github.com/grikdotnet/phpdocker/blob/master/Dockerfile-php) is in a [Github repository](https://github.com/grikdotnet/phpdocker).
+Here you can find the [build script](https://github.com/grikdotnet/phpdocker/blob/master/php_extensions_setup.sh).
 
 If you use Docker Machine in Windows or MacOS, mount the folder with your project to your virtual machine, using the same path. You can find how to do it on [StackOverflow](http://stackoverflow.com/questions/30040708/how-to-mount-local-volumes-in-docker-machine/32030385#32030385).
 
