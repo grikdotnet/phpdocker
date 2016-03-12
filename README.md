@@ -92,7 +92,7 @@ Additional extensions added to CLI version:
 
 Additional disk consumption: 140 MB
 ```
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-phpextensions       latest              6a506ccc4b69        About an hour ago   635.1 MB
-php                 7-fpm               e6e0357f88cd        8 days ago          495 MB
+REPOSITORY          TAG                 SIZE
+phpextensions       latest              635.1 MB
+php                 7-fpm               495 MB
 ```
