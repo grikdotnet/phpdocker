@@ -93,6 +93,6 @@ Additional extensions added to CLI version:
 Additional disk consumption: 140 MB
 ```
 REPOSITORY          TAG                 SIZE
-phpextensions       latest              635.1 MB
+phpextensions       latest              635.3 MB
 php                 7-fpm               495 MB
 ```
