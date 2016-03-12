@@ -30,7 +30,7 @@ Assuming your document root folder is called wwroot\ and is located in your appl
 Init configs and logs folders
 ```
 cd /path/to/application
-wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -xя
+wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -xz
 chgrp -R www-data .
 chmod g+rwx logs etc
 # init php configs in ./etc folder from an image
