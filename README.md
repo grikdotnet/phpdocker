@@ -33,7 +33,6 @@ cd /path/to/application
 wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/init_lnpm.tar.gz -O - |tar -xz
 chgrp -R www-data .
 chmod g+rwx logs etc
-# init php configs in ./etc folder from an image
 docker run --rm -v $(pwd)/etc:/usr/local/etc grigori/phpextensions
 ```
 Disable PHP extensions you don't want to have enabled
@@ -45,7 +44,7 @@ cd ../../..
 vi ./etc/php/php.ini
 vi ./etc/nginx/conf.d/default.conf
 ```
-Prepare a database init dump, should contain a `create database` command.
+Prepare a database init dump. Can be in plain sql or compressed with .gz. Should contain a `create database` command.
 Add custom mysql setings.
 ```
 vi ./etc/my.custom.cnf
@@ -57,7 +56,7 @@ git add ./etc ./docker-compose.yml && git commit -m "Adding php/nginx/mysql/dock
 ```
 Prepare docker-compose config and start
 ```
-wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.ym
+wget https://raw.githubusercontent.com/grikdotnet/phpdocker/master/docker-compose.yml
 docker-compose up
 ```
 
