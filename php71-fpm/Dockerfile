@@ -22,7 +22,7 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
     && docker-php-ext-enable igbinary apcu redis memcached xdebug \
-    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off
+    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl \
 # create a default php.ini file to edit it in a mouted volume
