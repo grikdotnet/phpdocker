@@ -14,13 +14,13 @@ nginx:
   ports:
    - "8080:80"
   links:
-   - php-fpm
+   - php71-fpm
    - memcached
 
 php-fpm:
   image: grigori/phpextensions
-  container_name: php-fpm
-  command: [php-fpm]
+  container_name: php71-fpm
+  command: [php71-fpm]
   volumes:
     - ./etc/:/usr/local/etc/
     - ./logs:/var/log/php/
