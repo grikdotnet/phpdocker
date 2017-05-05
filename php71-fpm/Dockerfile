@@ -37,3 +37,4 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
     && chmod a+x /usr/local/bin/docker-php-entrypoint
 
 ENTRYPOINT ["docker-php-entrypoint"]
+CMD ["php-fpm"]
