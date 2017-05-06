@@ -1,23 +1,22 @@
-FROM grigori/phpextensions
+FROM grigori/phpextensions:7.1-fpm-alpine
 
-LABEL Description="This image provides PHP-fpm with image processing extensions"
+LABEL Description="This image provides PHP-fpm 7.1 with Image Magic library and extension"
 MAINTAINER Grigori Kochanov public@grik.net
 
-#Add graphics libraries for image magic and graphics magic
-RUN apt-get update && apt-get install --no-install-recommends -y \
-            libfreetype6-dev libjpeg62-turbo-dev libpng12-dev libtiff5-dev \
-            libwebp-dev libjasper-dev zlib1g-dev libbz2-dev liblzma-dev \
-&& curl -O http://www.imagemagick.org/download/ImageMagick.tar.xz \
-    && mkdir /usr/src/ImageMagick && tar -xf ImageMagick.tar.xz --strip-components=1 -C /usr/src/ImageMagick \
-    && cd /usr/src/ImageMagick \
-    && ./configure  --disable-docs --without-x --without-magick-plus-plus \
-           --with-gslib=yes --with-wmf=no \
-    && make -j$(nproc) && make install && ldconfig /usr/local/lib \
-    && cd /usr/src/ && rm -rf ImageMagick* \
-&& echo no| pecl install imagick &&  docker-php-ext-enable imagick \
-&& apt-get purge -y libbz2-dev libfreetype6-dev libjasper-dev libjbig-dev libjpeg62-turbo-dev \
-        libpng12-dev libtiff5-dev zlib1g-dev libwebp-dev \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /usr/local/include/ImageMagick*
-
+#Add graphics libraries for image magic
+RUN apk add --no-cache tiff libjasper libbz2 fontconfig openjpeg \
+    && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils bash zlib-dev bzip2-dev \
+        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev jasper-dev tiff-dev openjpeg-dev fontconfig-dev \
+    && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
+    && wget -O FLIF.tar.gz https://github.com/FLIF-hub/FLIF/archive/v0.3.tar.gz \
+        && tar -xf FLIF.tar.gz && cd FLIF-0.3/src && make -j$CPU_COUNT libflif.so && make install \
+        && cd ../../ && rm -rf FLIF* /usr/local/share/man/man1/flif.1 \
+    && wget http://www.imagemagick.org/download/ImageMagick.tar.xz \
+        && tar -xf ImageMagick.tar.xz && cd ImageMagick* \
+        && ./configure  --disable-docs --without-x --without-magick-plus-plus --with-gslib=yes --with-wmf=no \
+        && make -j$CPU_COUNT && make install && ldconfig /usr/local/lib \
+        && cd .. && rm -rf ImageMagick* \
+    && yes no| pecl install imagick &&  docker-php-ext-enable imagick \
+    && apk del ext-dev-dependencies
 
 
