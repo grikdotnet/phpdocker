@@ -1,7 +1,6 @@
 FROM php:7.1-fpm-alpine
 
 # allow editing php config files in the mounted volume
-VOLUME /usr/local/etc
 COPY docker-php-entrypoint /usr/local/bin/
 
 # install build environment
