@@ -1,5 +1,7 @@
 # Php with extensions and ImageMagic
 
-This image adds latest Image Magic with WEBP and FLIF and an imagic PHP extension to [phpextensions](https://hub.docker.com/r/grigori/phpextensions/).
+This image extends [phpextensions](https://hub.docker.com/r/grigori/phpextensions/) adding latest Image Magic.
 
-Both command line and library 
+Executable, library and PHP extensions are built.
+
+WEBP and FLIF formats added.
