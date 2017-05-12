@@ -1,4 +1,4 @@
-# Convenient Php with extensions
+# Convenient Php image with extensions
 
 This image is designed for convenient development. Store PHP configs in your application CVS and mount to a container.
 Added commonly used PHP extensions and libraries to official PHP-fpm images.
