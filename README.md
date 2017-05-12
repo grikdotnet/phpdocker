@@ -55,4 +55,4 @@ List of extensions and dependent libraries added to the official PHP image.
 Disk consumption: 
 * 104 MB for PHP 5.6
 * 118 MB for PHP 7.1
-* 175 MB fr PHP 7.1 with ImageMagic
+* 175 MB for PHP 7.1 with ImageMagic
