@@ -1,9 +1,8 @@
-# Php with extensions
+# Convenient Php with extensions
 
-Added commonly used PHP extensions to official PHP-fpm images.
-
-Useful to deploy PHP stack and switch versions, storing configs in application CVS.
-
+This image is designed for convenient development. Store PHP configs in your application CVS and mount to a container.
+Added commonly used PHP extensions and libraries to official PHP-fpm images.
+Small disk size thanks to alpine linux.
 
 ### Windows Example
 ```
@@ -31,7 +30,10 @@ The value is [hard-coded](https://github.com/docker-library/php/blob/master/7.1/
 
 ### Extensions added:
 
-Images contain following extensions with libraries they dependent on:
+List of extensions and dependent libraries added to the official PHP image.
+
+5.6-fpm-alpine and 7.1-fpm-alpine:
+
 * Apcu
 * Bcmath
 * GD, with webp support in php 7
@@ -45,6 +47,10 @@ Images contain following extensions with libraries they dependent on:
 * Xdebug (disabled)
 * Zend OPcache enabled
 
+7.1-fpm-imagemagic:
+* Latest ImageMagick executable and library built from sources
+* [WEBP](https://en.wikipedia.org/wiki/WebP) - an efficient image format for web
+* [FLIF format](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) - new efficient lossless format
 
 Disk consumption: 
 * 104 MB for PHP 5.6
