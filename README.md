@@ -48,9 +48,9 @@ List of extensions and dependent libraries added to the official PHP image.
 * Zend OPcache enabled
 
 7.1-fpm-imagemagic:
-* Latest ImageMagick executable and library built from sources
-* [WEBP](https://en.wikipedia.org/wiki/WebP) - an efficient image format for web
-* [FLIF format](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) - new efficient lossless format
+* Latest ImageMagick executable, library and PHP extension
+* [WEBP](https://en.wikipedia.org/wiki/WebP) support - an efficient image format for web
+* [FLIF](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) support - new efficient lossless image format
 
 Disk consumption: 
 * 104 MB for PHP 5.6
