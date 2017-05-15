@@ -8,7 +8,7 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev postgresql-dev cyrus-sasl-dev \
         openssl-dev libxml2-dev freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev zlib-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \

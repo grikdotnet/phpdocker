@@ -40,6 +40,7 @@ List of extensions and dependent libraries added to the official PHP image.
 * [igbinary](https://github.com/igbinary/igbinary) - a serializer for redis and memcached
 * [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7), configured with igbinary serializer and sessions support
 * mysqli
+* pgsql
 * pdo_mysql
 * pdo_pgsql
 * [Redis](https://github.com/phpredis/phpredis) with and sessions support and igbinary seralizer 
