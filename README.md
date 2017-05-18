@@ -28,11 +28,11 @@ $ sudo usermod -a -G www-data $(whoami)
 ```
 The value is [hard-coded](https://github.com/docker-library/php/blob/master/7.1/fpm/alpine/Dockerfile#L28) by official image maintainers. It can be changed by extending the image.
 
-### Extensions added:
+### Extensions added
 
 List of extensions and dependent libraries added to the official PHP image.
 
-5.6-fpm-alpine and 7.1-fpm-alpine:
+In **:5.6-fpm-alpine** and **:7.1-fpm-alpine** :
 
 * Apcu
 * Bcmath
@@ -48,7 +48,7 @@ List of extensions and dependent libraries added to the official PHP image.
 * Xdebug (disabled)
 * Zend OPcache enabled
 
-7.1-fpm-imagemagic:
+In **:7.1-fpm-imagemagic
 * Latest ImageMagick executable, library and PHP extension
 * [WEBP](https://en.wikipedia.org/wiki/WebP) support - an efficient image format for web
 * [FLIF](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) support - new efficient lossless image format
