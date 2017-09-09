@@ -22,18 +22,18 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
     && docker-php-ext-enable igbinary apcu redis memcached xdebug \
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
-# restrict console commands execution for web scripts
-    && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl \
 # create a default php.ini file to edit it in a mouted volume
     && docker-php-source extract && cp /usr/src/php/php.ini-development /usr/local/etc/php/php.ini \
 # back up the default ini files
     && cp -R /usr/local/etc/ /usr/src/ \
 # cleanup
-    && apk del ext-dev-dependencies \
     && docker-php-source delete \
+    && apk del ext-dev-dependencies \
     && rm -rf redis* memcached* /tmp/pear \
 # make the entrypoint executable
-    && chmod a+x /usr/local/bin/docker-php-entrypoint
+    && chmod a+x /usr/local/bin/docker-php-entrypoint \
+# restrict console commands execution for web scripts
+    && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
 
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php-fpm"]
