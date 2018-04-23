@@ -4,11 +4,11 @@ FROM php:7.1-fpm-alpine
 COPY docker-php-entrypoint /usr/local/bin/
 
 # install build environment
-RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev postgresql-dev cyrus-sasl-dev \
-        openssl-dev libxml2-dev freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
+        libxml2-dev freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql pgsql \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \
@@ -29,7 +29,7 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
 # cleanup
     && docker-php-source delete \
     && apk del ext-dev-dependencies \
-    && rm -rf redis* memcached* /tmp/pear \
+    && rm -rf redis* memcached* /tmp/pear ~/.pearrc \
 # make the entrypoint executable
     && chmod a+x /usr/local/bin/docker-php-entrypoint \
 # restrict console commands execution for web scripts
