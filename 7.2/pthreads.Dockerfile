@@ -1,19 +1,18 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.2-zts-alpine
 
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint /usr/local/bin/
 
 # install build environment
 RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
-    && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils git gettext-dev icu-dev \
-        postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev \
-        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
+    && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev git \
+        icu-dev postgresql-dev cyrus-sasl-dev libxml2-dev freetype-dev \
+        libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && cd /usr/src/ \
     && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-        --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \
+        --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/ --with-zlib-dir \
     && docker-php-ext-install -j$CPU_COUNT gd \
     && docker-php-ext-enable opcache \
 # build and install PECL extensions
@@ -26,7 +25,8 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
 # build pthreads from github
     && git clone https://github.com/krakjoe/pthreads && cd pthreads/ \
-        && phpize && ./configure && make && make install
+        && phpize && ./configure && make && make install \
+        && echo "extension=pthreads" > /usr/local/etc/php/conf.d/docker-php-ext-pthreads.ini \
 # cleanup
     && apk del ext-dev-dependencies \
     && rm -rf redis* memcached* pthreads /tmp/pear ~/.pearrc \
