@@ -4,9 +4,10 @@ FROM php:7.2-fpm-alpine
 COPY docker-php-entrypoint /usr/local/bin/
 
 # install build environment
-RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
-    && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev postgresql-dev cyrus-sasl-dev \
-        openssl-dev libxml2-dev freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
+    && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
+        postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev \
+        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
     && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
