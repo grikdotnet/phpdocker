@@ -22,8 +22,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && pecl download redis memcached \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable igbinary apcu redis memcached xdebug \
-    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
+    && docker-php-ext-enable igbinary apcu redis memcached \
 # cleanup
     && apk del ext-dev-dependencies \
     && rm -rf redis* memcached* pthreads /tmp/pear ~/.pearrc \
