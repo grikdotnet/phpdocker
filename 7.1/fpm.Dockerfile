@@ -1,7 +1,7 @@
 FROM php:7.1-fpm-alpine
 
 # allow editing php config files in the mounted volume
-COPY docker-php-entrypoint /usr/local/bin/
+COPY docker-php-entrypoint.sh /usr/local/bin/
 
 # install build environment
 RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
@@ -28,8 +28,9 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && rm -rf redis* memcached* pthreads /tmp/pear ~/.pearrc \
 # make the entrypoint executable
     && chmod a+x /usr/local/bin/docker-php-entrypoint \
+    && mkdir /docker-entrypoint-init.d/ \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
 
-ENTRYPOINT ["docker-php-entrypoint"]
+ENTRYPOINT ["docker-php-entrypoint.sh"]
 CMD ["php-fpm"]

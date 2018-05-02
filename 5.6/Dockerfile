@@ -1,7 +1,7 @@
 FROM php:5.6-fpm-alpine
 
 # allow editing php config files in the mounted volume
-COPY docker-php-entrypoint /usr/local/bin/
+COPY docker-php-entrypoint.sh /usr/local/bin/
 
 # install build environment
 RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
@@ -20,18 +20,14 @@ RUN apk add --no-cache openssl freetype libjpeg-turbo libpng libwebp gettext icu
     && pecl download redis memcached-2.2.0 \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable igbinary apcu redis memcached xdebug \
-    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
-# create a default php.ini file to edit it in a mouted volume
-    && docker-php-source extract && cp /usr/src/php/php.ini-development /usr/local/etc/php/php.ini \
-# back up the default ini files
-    && cp -R /usr/local/etc/ /usr/src/ \
+    && docker-php-ext-enable igbinary apcu redis memcached \
 # cleanup
     && docker-php-source delete \
     && apk del ext-dev-dependencies \
     && rm -rf redis* memcached* /tmp/pear \
 # make the entrypoint executable
     && chmod a+x /usr/local/bin/docker-php-entrypoint \
+    && mkdir /docker-entrypoint-init.d/ \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
 

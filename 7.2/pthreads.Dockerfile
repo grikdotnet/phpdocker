@@ -1,7 +1,7 @@
 FROM php:7.2-zts-alpine
 
 # allow editing php config files in the mounted volume
-COPY docker-php-entrypoint /usr/local/bin/
+COPY docker-php-entrypoint.sh /usr/local/bin/
 
 # install build environment
 RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
