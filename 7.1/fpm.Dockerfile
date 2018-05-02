@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.1-fpm-alpine
 
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint /usr/local/bin/
@@ -26,7 +26,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
 # build pthreads from github
     && git clone https://github.com/krakjoe/pthreads && cd pthreads/ \
-        && phpize && ./configure && make && make install
+        && phpize && ./configure && make && make install \
 # cleanup
     && apk del ext-dev-dependencies \
     && rm -rf redis* memcached* pthreads /tmp/pear ~/.pearrc \
