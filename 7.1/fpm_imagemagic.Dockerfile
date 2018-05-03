@@ -1,4 +1,4 @@
-FROM grigori/phpextensions:7.1-fpm-alpine
+FROM grigori/phpextensions:7.1-fpm
 
 LABEL Description="This image provides PHP-fpm 7.1 with Image Magic library and extension"
 MAINTAINER Grigori Kochanov public@grik.net
