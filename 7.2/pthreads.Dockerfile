@@ -1,7 +1,7 @@
 FROM php:7.2-zts-alpine
 
 # allow editing php config files in the mounted volume
-COPY docker-php-entrypoint.sh /usr/local/bin/
+COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
 RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
@@ -35,5 +35,5 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
 
-ENTRYPOINT ["docker-php-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]

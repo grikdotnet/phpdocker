@@ -20,5 +20,5 @@ RUN apk add --no-cache tiff libjasper libbz2 fontconfig openjpeg \
     && docker-php-ext-enable imagick \
     && apk del ext-dev-dependencies && rm -rf /tmp/pear
 
-ENTRYPOINT ["docker-php-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]
