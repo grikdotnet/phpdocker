@@ -9,7 +9,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
         icu-dev postgresql-dev cyrus-sasl-dev libxml2-dev freetype-dev \
         libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
+    && docker-php-ext-install -j$CPU_COUNT pcntl bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/ --with-zlib-dir \
