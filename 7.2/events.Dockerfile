@@ -13,7 +13,7 @@ RUN apk add --no-cache gettext icu-libs libevent \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils \
         libressl-dev icu-dev gettext-dev libevent-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext sockets \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext sockets pcntl \
 # make sockets extension load first
     && cd /usr/local/etc/php/conf.d/ && mv docker-php-ext-sockets.ini 1-docker-php-ext-sockets.ini \
     && cd /usr/src \
