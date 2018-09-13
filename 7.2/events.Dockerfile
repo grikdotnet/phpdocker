@@ -1,6 +1,6 @@
 FROM php:7.2-zts-alpine
 
-ARG XDEBUG_VER=xdebug-2.6.0
+ARG XDEBUG_VER=xdebug-2.6.1
 ARG EVENT_VER=event-2.4.1
 ARG EV_VER=ev-1.0.4
 ARG IGBINARY_VER=igbinary-2.0.7
