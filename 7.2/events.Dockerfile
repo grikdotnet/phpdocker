@@ -1,9 +1,9 @@
 FROM php:7.2-zts-alpine
 
 ARG XDEBUG_VER=xdebug-2.6.0
-ARG EVENT_VER=event-2.3.0
+ARG EVENT_VER=event-2.4.1
 ARG EV_VER=ev-1.0.4
-ARG IGBINARY_VER=igbinary-2.0.5
+ARG IGBINARY_VER=igbinary-2.0.7
 
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
@@ -13,7 +13,7 @@ RUN apk add --no-cache gettext icu-libs libevent \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils \
         libressl-dev icu-dev gettext-dev libevent-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext sockets pcntl \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext sockets pcntl mysqli pdo_mysql \
 # make sockets extension load first
     && cd /usr/local/etc/php/conf.d/ && mv docker-php-ext-sockets.ini 1-docker-php-ext-sockets.ini \
     && cd /usr/src \
