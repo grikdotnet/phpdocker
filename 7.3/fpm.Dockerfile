@@ -11,7 +11,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
     && cd /usr/src/ \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql pgsql \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --with-zlib-dir \
@@ -20,6 +20,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
     && yes no| pecl install igbinary \
+    && pecl -d preferred_state=beta install xdebug \
     && pecl download redis memcached \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
