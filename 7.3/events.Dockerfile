@@ -1,7 +1,6 @@
 # docker build -f events.Dockerfile -t grigori/phpextensions:7.3-events .
 FROM php:7.2-zts-alpine
 
-ARG XDEBUG_VER=xdebug-2.6.1
 ARG EVENT_VER=event-2.4.3
 ARG EV_VER=ev-1.0.4
 ARG IGBINARY_VER=igbinary-2.0.8
@@ -21,13 +20,13 @@ RUN apk add --no-cache gettext icu-libs libevent \
     && cd /usr/src \
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
-    && yes no| pecl install ds $IGBINARY_VER $XDEBUG_VER $SWOOLE_VER \
+    && yes no| pecl install ds sync $IGBINARY_VER $XDEBUG_VER $SWOOLE_VER \
     && pecl download $EVENT_VER $EV_VER \
         && tar -xf $EVENT_VER.tgz && cd $EVENT_VER && phpize \
             && ./configure --with-event-core --with-event-pthreads --with-event-extra --with-event-openssl \
             && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf $EV_VER.tgz && cd $EV_VER && phpize && ./configure && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable event ev swoole \
+    && docker-php-ext-enable ds sync event ev swoole \
 # cleanup
     && apk del ext-dev-dependencies \
     && rm -rf event* ev* /tmp/pear ~/.pearrc \

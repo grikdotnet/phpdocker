@@ -14,16 +14,17 @@ Tags:
 | **:7.x-fpm** | **7.x-events** |
 |---|---| 
 | Bcmath | Bcmath |
-| ds - [Data structures](http://php.net/manual/en/book.ds.php) for PHP 7 | ds |  
+| DS - [Data structures](http://php.net/manual/en/book.ds.php) for PHP 7 | DS |  
 | GD with webp, freetype, jpeg, png and zlib libraries | pcntl |
-| gettext | gettext |
-| [igbinary](https://github.com/igbinary/igbinary) - a better serializer for redis and memcached | igbinary |
+| Gettext | gettext |
+| [igbinary](https://github.com/igbinary/igbinary) - serializer for redis and memcached | igbinary |
 | [memcached](https://github.com/php-memcached-dev/php-memcached/tree/php7), with igbinary and sessions support | sockets | 
 | mysqli | mysqli |
 | pdo_mysql | pdo_mysql |
 | pgsql | [event](http://php.net/manual/en/book.event.php) for ReactPHP |
-| pdo_pgsql | [ev](http://php.net/manual/en/book.ev.php) also for ReactPHP |
-| [Redis](https://github.com/phpredis/phpredis) with and sessions support and igbinary | [swoole](https://github.com/swoole/swoole-src) |
+| pdo_pgsql | [ev](http://php.net/manual/en/book.ev.php) for ReactPHP |
+| pspell | [swoole](https://github.com/swoole/swoole-src) |
+| [Redis](https://github.com/phpredis/phpredis) with and sessions support and igbinary |  |
 | Xdebug (not enabled by default) | |
 | Zend OPcache enabled | |
 
@@ -34,7 +35,7 @@ In **:7.x-fpm-imagemagic**
 * [FLIF](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) support - new efficient lossless image format
 
 
-Inherited from the official image:
+Inherited from the **official image**:
 * ctype
 * curl
 * date

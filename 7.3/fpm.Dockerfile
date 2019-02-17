@@ -5,13 +5,13 @@ FROM php:7.3-fpm-alpine
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
-RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs aspell-libs \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
-        postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev \
+        postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev aspell-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
     && cd /usr/src/ \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
+    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --with-zlib-dir \
