@@ -22,7 +22,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && pecl download redis memcached \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable igbinary redis memcached \
+    && docker-php-ext-enable igbinary redis memcached ds \
 # add browscap.ini
     && wget -O /usr/local/lib/php/lite_php_browscap.ini https://browscap.org/stream?q=Lite_PHP_BrowsCapINI \
     && echo "browscap = /usr/local/lib/php/lite_php_browscap.ini" > /usr/local/etc/php/conf.d/docker-php-browscap.ini \
