@@ -1,3 +1,4 @@
+# docker build -f events.Dockerfile -t grigori/phpextensions:7.3-events .
 FROM php:7.2-zts-alpine
 
 ARG XDEBUG_VER=xdebug-2.6.1
@@ -26,7 +27,7 @@ RUN apk add --no-cache gettext icu-libs libevent \
             && ./configure --with-event-core --with-event-pthreads --with-event-extra --with-event-openssl \
             && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf $EV_VER.tgz && cd $EV_VER && phpize && ./configure && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable ds event ev swoole \
+    && docker-php-ext-enable event ev swoole \
 # cleanup
     && apk del ext-dev-dependencies \
     && rm -rf event* ev* /tmp/pear ~/.pearrc \

@@ -17,11 +17,11 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && docker-php-ext-enable opcache \
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
-    && yes no| pecl install apcu igbinary xdebug \
+    && yes no| pecl install igbinary xdebug \
     && pecl download redis memcached \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
-    && docker-php-ext-enable igbinary apcu redis memcached xdebug \
+    && docker-php-ext-enable igbinary redis memcached xdebug \
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.off \
 # build pthreads from github
     && git clone https://github.com/krakjoe/pthreads && cd pthreads/ \
