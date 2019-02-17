@@ -4,14 +4,14 @@ This image is inherited from an official PHP image, having common extensions add
 Small disk size thanks to alpine linux.
 
 Tags:
-* 7.3-fpm, 7.2-fpm, 7.1-fpm - classic PHP-FPM
+* 7.3-fpm, 7.2-fpm - classic PHP-FPM
 * 7.3-events, 7.2-events  - adapted for non-blocking and console: ReactPHP, AMPHP and Swoole
 * 7.2-threads - thread-safe build with pthreads and pht extensions
 * 5.6-fpm-alpine - old PHP 5.6 image
 
 ### Extensions
 
-| **:7.x-fpm** | In **7.2-events** |
+| **:7.x-fpm** | **7.x-events** |
 |---|---| 
 | Bcmath | Bcmath |
 | ds - [Data structures](http://php.net/manual/en/book.ds.php) for PHP 7 | ds |  
