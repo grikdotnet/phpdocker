@@ -3,8 +3,6 @@ FROM php:7.2-zts-alpine
 
 ARG EVENT_VER=event-2.4.3
 ARG EV_VER=ev-1.0.4
-ARG IGBINARY_VER=igbinary-2.0.8
-ARG SWOOLE_VER=swoole-4.2.13
 
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
@@ -20,7 +18,7 @@ RUN apk add --no-cache gettext icu-libs libevent \
     && cd /usr/src \
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
-    && yes no| pecl install ds sync $IGBINARY_VER $XDEBUG_VER $SWOOLE_VER \
+    && yes no| pecl install ds sync igbinary xdebug swoole \
     && pecl download $EVENT_VER $EV_VER \
         && tar -xf $EVENT_VER.tgz && cd $EVENT_VER && phpize \
             && ./configure --with-event-core --with-event-pthreads --with-event-extra --with-event-openssl \
