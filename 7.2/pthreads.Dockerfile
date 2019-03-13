@@ -4,12 +4,12 @@ FROM php:7.2-zts-alpine
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
-RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs libzip \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev git \
         icu-dev postgresql-dev cyrus-sasl-dev libxml2-dev freetype-dev \
-        libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev \
+        libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev libzip-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT pcntl bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql \
+    && docker-php-ext-install -j$CPU_COUNT pcntl bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql zip \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
         --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/ --with-zlib-dir \
