@@ -29,17 +29,17 @@ Tags:
 | Zend OPcache enabled | |
 | zip | | 
 |---|---|
-| [browscap.ini](http://browscap.org/) Lite for [get_browser](http://php.net/manual/en/function.get-browser.php) | |
+| [browscap.ini](http://browscap.org/) Lite for [get_browser()](http://php.net/manual/en/function.get-browser.php) | |
 
-* Pspell is not added to PHP 5.6.40 image.
+ * Pspell is not added to PHP 5.6.40 image.
 
-**:7.x-fpm-imagemagic** is inherited from 7.x-fpm, plus: 
-* Latest ImageMagick executable, library and PHP extension
+**7.x-fpm-imagemagic** is inherited from 7.x-fpm, plus: 
+* Latest ImageMagick library, PHP extension and executable
 * [WEBP](https://en.wikipedia.org/wiki/WebP) support
 * [FLIF](https://en.wikipedia.org/wiki/Free_Lossless_Image_Format) support
 
 
-Inherited from the **official image**:
+**Extensions inherited from official images:**
 * ctype
 * curl
 * date
