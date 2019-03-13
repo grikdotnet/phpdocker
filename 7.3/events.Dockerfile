@@ -1,5 +1,5 @@
 # docker build -f events.Dockerfile -t grigori/phpextensions:7.3-events .
-FROM php:7.2-zts-alpine
+FROM php:7.3-zts-alpine
 
 ARG EVENT_VER=event-2.4.3
 ARG EV_VER=ev-1.0.4
