@@ -1,4 +1,4 @@
-# Convenient Php image with extensions
+# Convenient Php images with extensions
 
 Inherited from official PHP images, having common extensions added.
 Small image size thanks to Alpine linux.
@@ -11,7 +11,7 @@ Tags:
 
 ### Extensions
 
-| **:7.x-fpm**, 5.6-fpm | **7.x-events** |
+| **7.x-fpm**, 5.6-fpm | **7.x-events** |
 |---|---|
 | Bcmath | Bcmath |
 | DS - [Data structures](http://php.net/manual/en/book.ds.php) for PHP 7 | DS |  
@@ -72,4 +72,3 @@ Inherited from the **official image**:
 * xmlreader
 * xmlwriter
 * zlib
-
