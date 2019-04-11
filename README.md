@@ -4,14 +4,16 @@ Inherited from official PHP images, having common extensions added.
 Small image size thanks to Alpine linux.
 
 Tags:
-* 7.3-fpm, 7.2-fpm - classic PHP-FPM
+* 7.3-fpm, 7.2-fpm - classic PHP-FPM with common extensions
+* 7.3-fpm-imagemagic, 7.2-fpm - image magic added 
 * 7.3-events, 7.2-events  - adapted for non-blocking and console: ReactPHP, AMPHP and Swoole
 * 7.2-threads - thread-safe build with pthreads and pht extensions
-* 5.6-fpm - PHP 5.6.40 FPM Alpine image + extensions
+
+Versions: 7.3.4 and 7.2.17
 
 ### Extensions
 
-| **7.x-fpm**, 5.6-fpm | **7.x-events** |
+| **7.2-fpm**, **7.3-fpm** | **7.x-events** |
 |---|---|
 | Bcmath | Bcmath |
 | DS - [Data structures](http://php.net/manual/en/book.ds.php) for PHP 7 | DS |  
