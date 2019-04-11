@@ -1,5 +1,8 @@
 FROM php:7.2-fpm-alpine
 
+LABEL Description="This image provides PHP-fpm 7.2 with common extension"
+MAINTAINER Grigori Kochanov public@grik.net
+
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
