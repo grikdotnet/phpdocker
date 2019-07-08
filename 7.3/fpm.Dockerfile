@@ -40,7 +40,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
 
 # Fix iconv lib
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]

@@ -7,7 +7,7 @@ MAINTAINER Grigori Kochanov public@grik.net
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
-RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs aspell-libs libzip \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs aspell-libs libzip gnu-libiconv \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
         postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev libzip-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev aspell-dev \
@@ -37,6 +37,9 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && mkdir /docker-entrypoint-init.d/ \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
+
+# Fix iconv lib
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]

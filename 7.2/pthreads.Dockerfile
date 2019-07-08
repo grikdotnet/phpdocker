@@ -4,7 +4,7 @@ FROM php:7.2-zts-alpine
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
-RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs libzip \
+RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs libmemcached postgresql-libs libzip gnu-libiconv \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev git \
         icu-dev postgresql-dev cyrus-sasl-dev libxml2-dev freetype-dev \
         libjpeg-turbo-dev libpng-dev libwebp-dev libmemcached-dev libzip-dev \
@@ -34,6 +34,9 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && chmod a+x /usr/local/bin/docker-php-entrypoint \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
+
+# Fix iconv lib
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]

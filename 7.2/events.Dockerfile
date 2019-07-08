@@ -8,7 +8,7 @@ ARG EV_VER=ev-1.0.4
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 # install build environment
-RUN apk add --no-cache gettext icu-libs libevent \
+RUN apk add --no-cache gettext icu-libs libevent gnu-libiconv \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils \
         libressl-dev icu-dev gettext-dev libevent-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
@@ -32,6 +32,9 @@ RUN apk add --no-cache gettext icu-libs libevent \
     && chmod a+x /usr/local/bin/docker-php-entrypoint \
 # restrict console commands execution for web scripts
     && chmod o-rx /bin/busybox /usr/bin/curl /usr/local/bin/pecl
+
+# Fix iconv lib
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 ENTRYPOINT ["/usr/local/bin/docker-php-entrypoint"]
 CMD ["php-fpm"]

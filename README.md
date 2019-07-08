@@ -1,15 +1,14 @@
 # Convenient Php images with extensions
 
-Inherited from official PHP images, having common extensions added.
-Small image size thanks to Alpine linux.
+Inherited from official PHP images, common extensions added, fixed iconv.
+
+Versions: 7.3.6 and 7.2.20
 
 Tags:
 * 7.3-fpm, 7.2-fpm - classic PHP-FPM with common extensions
 * 7.3-fpm-imagemagic, 7.2-fpm - image magic added 
 * 7.3-events, 7.2-events  - adapted for non-blocking and console: ReactPHP, AMPHP and Swoole
 * 7.2-threads - thread-safe build with pthreads and pht extensions
-
-Versions: 7.3.4 and 7.2.17
 
 ### Extensions
 
