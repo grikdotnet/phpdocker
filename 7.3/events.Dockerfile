@@ -1,8 +1,11 @@
 # docker build -f events.Dockerfile -t grigori/phpextensions:7.3-events .
 FROM php:7.3-zts-alpine
 
-ARG EVENT_VER=event-2.4.3
-ARG EV_VER=ev-1.0.4
+LABEL Description="This image provides PHP 7.3 fpm and cli with common extensions https://hub.docker.com/r/grigori/phpextensions"
+MAINTAINER Grigori Kochanov public@grik.net
+
+ARG EVENT_VER=event-2.5.3
+ARG EV_VER=ev-1.0.6
 
 # allow editing php config files in the mounted volume
 COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint

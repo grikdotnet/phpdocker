@@ -1,7 +1,7 @@
 # docker build -f fpm.Dockerfile -t grigori/phpextensions:7.3-fpm .
 FROM php:7.3-fpm-alpine
 
-LABEL Description="This image provides PHP-fpm 7.3 with common extension"
+LABEL Description="This image provides PHP 7.3 fpm and cli with common extensions https://hub.docker.com/r/grigori/phpextensions"
 MAINTAINER Grigori Kochanov public@grik.net
 
 # allow editing php config files in the mounted volume

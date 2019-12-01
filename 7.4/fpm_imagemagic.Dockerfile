@@ -1,6 +1,6 @@
-FROM grigori/phpextensions:7.3-fpm
+FROM grigori/phpextensions:7.4-fpm
 
-LABEL Description="This image provides PHP-fpm 7.3 with Image Magic library and extension"
+LABEL Description="This image provides PHP 7.4 FPM and CLI with Image Magic and common extensions https://hub.docker.com/r/grigori/phpextensions"
 MAINTAINER Grigori Kochanov public@grik.net
 
 #Add graphics libraries for image magic

@@ -2,13 +2,13 @@
 
 Inherited from official PHP images, common extensions added, fixed iconv.
 
-Versions: 7.4.0, 7.3.11 and 7.2.24
+Versions: 7.4.0, 7.3.12 and 7.2.25
 
 Tags:
-* 7.4-fpm, 7.3-fpm, 7.2-fpm - classic PHP-FPM with common extensions
-* 7.3-fpm-imagemagic, 7.2-fpm - image magic added 
-* 7.3-events, 7.2-events  - adapted for non-blocking and console: ReactPHP, AMPHP and Swoole
-* 7.2-threads - thread-safe build with pthreads and pht extensions
+* `7.4-fpm`, `7.3-fpm`, `7.2-fpm` - classic PHP-FPM and CLI non-threadsafe with common extensions
+* `7.4-fpm-imagemagic`, `7.3-fpm-imagemagic`, `7.2-fpm` - image magic added 
+* `7.3-events`, `7.2-events` - for non-blocking and console applications, ReactPHP, AMPHP and Swoole, thread-safe
+* `7.2-threads` - build with pthreads and pht extensions, thread-safe
 
 ### Extensions
 

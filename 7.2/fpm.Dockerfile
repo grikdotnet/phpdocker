@@ -1,6 +1,6 @@
 FROM php:7.2-fpm-alpine
 
-LABEL Description="This image provides PHP-fpm 7.2 with common extension"
+LABEL Description="This image provides PHP 7.2 fpm and cli with common extensions https://hub.docker.com/r/grigori/phpextensions"
 MAINTAINER Grigori Kochanov public@grik.net
 
 # allow editing php config files in the mounted volume
