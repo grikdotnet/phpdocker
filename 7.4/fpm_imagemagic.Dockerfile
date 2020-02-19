@@ -4,9 +4,9 @@ LABEL Description="This image provides PHP 7.4 FPM and CLI with Image Magic and 
 MAINTAINER Grigori Kochanov public@grik.net
 
 #Add graphics libraries for image magic
-RUN apk add --no-cache tiff jasper-libs libbz2 fontconfig openjpeg \
+RUN apk add --no-cache tiff libbz2 fontconfig openjpeg \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils bash zlib-dev bzip2-dev \
-        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev jasper-dev tiff-dev openjpeg-dev fontconfig-dev \
+        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev tiff-dev openjpeg-dev fontconfig-dev \
     && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
     && wget -O FLIF.tar.gz https://github.com/FLIF-hub/FLIF/archive/v0.3.tar.gz \
         && tar -xf FLIF.tar.gz && cd FLIF-0.3/src && make -j$CPU_COUNT libflif.so \

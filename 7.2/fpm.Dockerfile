@@ -16,7 +16,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && docker-php-ext-install -j$CPU_COUNT bcmath gettext iconv mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
 # build standard extensions
     && docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-        --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/   --enable-gd-native-ttf --with-zlib-dir \
+        --with-webp-dir=/usr/include/ --with-png-dir=/usr/include/ --with-zlib-dir \
     && docker-php-ext-install -j$CPU_COUNT gd \
     && docker-php-ext-enable opcache \
 # build and install PECL extensions
