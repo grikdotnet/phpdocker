@@ -2,7 +2,7 @@
 
 Inherited from official PHP images, common extensions added, fixed iconv.
 
-Versions: 7.4.3, 7.3.15 and 7.2.27
+Versions: 7.4.4, 7.3.16 and 7.2.29
 
 Tags:
 * `7.4-fpm`, `7.3-fpm`, `7.2-fpm` - classic PHP-FPM and CLI non-threadsafe with common extensions
