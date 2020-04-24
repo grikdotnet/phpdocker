@@ -16,8 +16,8 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && docker-php-ext-enable opcache \
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
-    && yes | pecl install igbinary-2.0.8 xdebug \
-    && pecl download redis memcached-2.2.0 \
+    && yes | pecl install igbinary-2.0.8 xdebug-2.5.5 \
+    && pecl download redis-4.3.0 memcached-2.2.0 \
         && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
         && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
     && docker-php-ext-enable igbinary redis memcached \
