@@ -9,7 +9,6 @@ Tags:
 * `7.4-fpm-imagemagic`, `7.3-fpm-imagemagic`, `7.2-fpm-imagemagic` - image libraries and extension added
 * `7.3-events`, `7.2-events` - for non-blocking and console applications, ReactPHP, AMPHP and Swoole, thread-safe
 * `7.2-threads` - build with pthreads and pht extensions, thread-safe
-* `7.2-threads` - build with pthreads and pht extensions, thread-safe
 
 ### Extensions
 
