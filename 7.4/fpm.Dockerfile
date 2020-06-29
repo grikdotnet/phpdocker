@@ -12,7 +12,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
         postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev aspell-dev libzip-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
-    && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
+    && export CPU_COUNT=$(grep -c processor /proc/cpuinfo) \
     && cd /usr/src/ \
     && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
 # build standard extensions
