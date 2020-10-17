@@ -12,19 +12,18 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
         postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev aspell-dev libzip-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
-    && export CPU_COUNT=$(grep -c processor /proc/cpuinfo) \
     && cd /usr/src/ \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
+    && docker-php-ext-install -j$(nproc) bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
 # build standard extensions
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j$CPU_COUNT gd \
+    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-enable opcache \
 # build and install PECL extensions
     && pecl channel-update pecl.php.net \
     && yes no| pecl install igbinary ds xdebug \
     && pecl download redis memcached \
-        && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$CPU_COUNT && make install && cd .. \
-        && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$CPU_COUNT && make install && cd .. \
+        && tar -xf redis* && cd redis* && phpize && ./configure --enable-redis-igbinary && make -j$(nproc) && make install && cd .. \
+        && tar -xf memcached* && cd memcached* && phpize && ./configure --disable-memcached-sasl --enable-memcached-igbinary && make -j$(nproc) && make install && cd .. \
     && docker-php-ext-enable igbinary redis memcached ds \
 # add browscap.ini
     && wget -O /usr/local/lib/php/lite_php_browscap.ini https://browscap.org/stream?q=Lite_PHP_BrowsCapINI \

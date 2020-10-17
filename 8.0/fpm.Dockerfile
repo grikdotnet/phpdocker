@@ -12,12 +12,11 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils gettext-dev icu-dev \
         postgresql-dev cyrus-sasl-dev libxml2-dev libmemcached-dev aspell-dev libzip-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
-    && export CPU_COUNT=$(grep -c processor /proc/cpuinfo) \
     && cd /usr/src/ \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
+    && docker-php-ext-install -j$(nproc) bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
 # build standard extensions with options
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
-    && docker-php-ext-install -j$CPU_COUNT gd \
+    && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-enable opcache \
 # install pickle and docker-php-extension-installer that replace PECL for PHP8
     && wget -O /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \

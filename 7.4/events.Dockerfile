@@ -14,8 +14,7 @@ COPY docker-php-entrypoint.sh /usr/local/bin/docker-php-entrypoint
 RUN apk add --no-cache gettext icu-libs libevent gnu-libiconv \
     && apk add --no-cache --virtual ext-dev-dependencies $PHPIZE_DEPS binutils \
         libressl-dev icu-dev gettext-dev libevent-dev \
-    && export CPU_COUNT=$(cat /proc/cpuinfo | grep processor | wc -l) \
-    && docker-php-ext-install -j$CPU_COUNT bcmath gettext sockets pcntl mysqli pdo_mysql \
+    && docker-php-ext-install -j$(nproc) bcmath gettext sockets pcntl mysqli pdo_mysql \
 # make sockets extension load first
     && cd /usr/local/etc/php/conf.d/ && mv docker-php-ext-sockets.ini 1-docker-php-ext-sockets.ini \
     && cd /usr/src \
@@ -25,8 +24,8 @@ RUN apk add --no-cache gettext icu-libs libevent gnu-libiconv \
     && pecl download $EVENT_VER $EV_VER \
         && tar -xf $EVENT_VER.tgz && cd $EVENT_VER && phpize \
             && ./configure --with-event-core --with-event-pthreads --with-event-extra --with-event-openssl \
-            && make -j$CPU_COUNT && make install && cd .. \
-        && tar -xf $EV_VER.tgz && cd $EV_VER && phpize && ./configure && make -j$CPU_COUNT && make install && cd .. \
+            && make -j$(nproc) && make install && cd .. \
+        && tar -xf $EV_VER.tgz && cd $EV_VER && phpize && ./configure && make -j$(nproc) && make install && cd .. \
     && docker-php-ext-enable ds sync event ev swoole \
 # cleanup
     && apk del ext-dev-dependencies \
