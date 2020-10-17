@@ -15,7 +15,7 @@ RUN apk add --no-cache freetype libjpeg-turbo libpng libwebp gettext icu-libs li
     && cd /usr/src/ \
     && docker-php-ext-install -j$(nproc) bcmath gettext mysqli pdo_mysql pdo_pgsql pgsql pspell zip \
 # build standard extensions with options
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-enable opcache \
 # install pickle and docker-php-extension-installer that replace PECL for PHP8
