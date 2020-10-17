@@ -2,13 +2,13 @@
 
 Inherited from official PHP images, common extensions added, fixed iconv.
 
-Versions: 7.4.6, 7.3.18, 7.2.31, 5.6.20
+Versions: 7.4.11, 7.3.23, 7.2.34, 5.6.20
 
 Tags:
-* `7.4-fpm`, `7.3-fpm`, `7.2-fpm`, `5.6-fpm` - classic PHP-FPM and CLI non-threadsafe with common extensions
-* `7.4-fpm-imagemagic`, `7.3-fpm-imagemagic`, `7.2-fpm-imagemagic` - image libraries and extension added
-* `7.3-events`, `7.2-events` - for non-blocking and console applications, ReactPHP, AMPHP and Swoole, thread-safe
-* `7.2-threads` - build with pthreads and pht extensions, thread-safe
+* PHP-FPM and CLI non-threadsafe with common extensions: `grigori/phpextensions:7.4-fpm`, `grigori/phpextensions:7.3-fpm`, `grigori/phpextensions:7.2-fpm`, `grigori/phpextensions:5.6-fpm`
+* FPM/CLI + Image Magic: `grigori/phpextensions:7.4-fpm-imagemagic`, `grigori/phpextensions:7.3-fpm-imagemagic`, `grigori/phpextensions:7.2-fpm-imagemagic`
+* `grigori/phpextensions:7.3-events`, `grigori/phpextensions:7.2-events` - thread-safe, with event extensions, for non-blocking applications such as ReactPHP, AMPHP and Swoole
+* `grigori/phpextensions:7.2-threads` - pthreads and pht extensions, thread-safe
 
 ### Extensions
 
