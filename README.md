@@ -2,7 +2,7 @@
 
 Inherited from official PHP images, common extensions added, fixed iconv.
 
-Versions: 8.0RC1, 7.4.11, 7.3.23, 7.2.34, 5.6.20
+Versions: 8.0.0, 7.4.13, 7.3.25, 7.2.34, 5.6.20
 
 Tags:
 * PHP-FPM and CLI non-threadsafe with common extensions: `grigori/phpextensions:8.0-fpm`, `grigori/phpextensions:7.4-fpm`, `grigori/phpextensions:7.3-fpm`, `grigori/phpextensions:7.2-fpm`, `grigori/phpextensions:5.6-fpm`

@@ -1,5 +1,5 @@
 # docker build -f fpm.Dockerfile -t grigori/phpextensions:7.3-fpm .
-FROM php:8.0-rc-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 LABEL Description="This image provides PHP 8.0 fpm and cli with common extensions https://hub.docker.com/r/grigori/phpextensions"
 MAINTAINER Grigori Kochanov public@grik.net
