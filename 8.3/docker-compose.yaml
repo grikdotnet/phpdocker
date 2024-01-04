@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  router:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      # background issuing and renewing ACME certificates
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # Communicate with PHP via Unix socket
+      - fpm-socket:/fpm-socket/
+
+  application:
+    image:  grigori/phpextensions:8.3-fpm
+    volumes:
+      # application code
+      - fpm-socket:/fpm-socket/
+      - type: bind
+        source: ./scripts/
+        target: /scripts/
+      - type: bind
+        source: ./etc/
+        target: /usr/local/etc/
+      - type: bind
+        source: ./docker-entrypoint-init.d/
+        target: /docker-entrypoint-init.d/
+    command: ["-F","-c", "/usr/local/etc/php/php.ini-production"]
+
+volumes:
+  fpm-socket:
+

@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  application:
+    command: ["-F","-c", "/usr/local/etc/php/php.ini-development"]
+    environment:
+      - XDEBUG_MODE=debug
