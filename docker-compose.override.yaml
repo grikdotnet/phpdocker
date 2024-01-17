@@ -5,3 +5,6 @@ services:
     command: ["-F","-c", "/usr/local/etc/php/php.ini-development"]
     environment:
       - XDEBUG_MODE=debug
+    build:
+      context: docker
+      dockerfile: baseline-image.Dockerfile
